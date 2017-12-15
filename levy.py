@@ -196,14 +196,14 @@ def _make_dist_data_file():
     pdf = np.zeros(size, 'float64')
     for i, alpha in enumerate(alphas):
         for j, beta in enumerate(betas):
-            print("Calculating alpha={:.2f}, beta={:.2f}".format(alpha, beta))
+            print(("Calculating alpha={:.2f}, beta={:.2f}".format(alpha, beta)))
             pdf[:, i, j] = [_calculate_levy(t, alpha, beta, False) for t in ts]
     np.savez('pdf.npz', pdf)
 
     cdf = np.zeros(size, 'float64')
     for i, alpha in enumerate(alphas):
         for j, beta in enumerate(betas):
-            print("Calculating alpha={:.2f}, beta={:.2f}".format(alpha, beta))
+            print(("Calculating alpha={:.2f}, beta={:.2f}".format(alpha, beta)))
             cdf[:, i, j] = [_calculate_levy(t, alpha, beta, True) for t in ts]
     np.savez('cdf.npz', cdf)
 
@@ -246,7 +246,7 @@ def _make_limit_data_file():
     for i, alpha in enumerate(alphas):
         for j, beta in enumerate(betas):
             limits[i, j] = _get_closest_approx(alpha, beta)
-            print("Calculating alpha={:.2f}, beta={:.2f}, limit={:.2f}".format(alpha, beta, limits[i, j]))
+            print(("Calculating alpha={:.2f}, beta={:.2f}, limit={:.2f}".format(alpha, beta, limits[i, j])))
 
     np.savez('limits.npz', limits)
 
@@ -281,8 +281,8 @@ def levy(x, alpha, beta, mu=0.0, sigma=1.0, cdf=False, par=0):
     try:
         l = limits[alpha_index, beta_index]
     except IndexError:
-        print(alpha, alpha_index)
-        print(beta, beta_index)
+        print((alpha, alpha_index))
+        print((beta, beta_index))
         raise
     mask = (np.abs(xr) < l)
     z = xr[mask]
@@ -402,4 +402,4 @@ if __name__ == "__main__":
 
     print("1000 points, result should be (1.5, 0.5, 0.0, 1.0).")
     result = fit_levy(random(1.5, 0.5, 0.0, 1.0, 1000))
-    print('alpha={:.2f}, beta={:.2f}, mu_0={:.2f}, sigma={:.2f}, neglog={:.2f}'.format(*result))
+    print(('alpha={:.2f}, beta={:.2f}, mu_0={:.2f}, sigma={:.2f}, neglog={:.2f}'.format(*result)))
